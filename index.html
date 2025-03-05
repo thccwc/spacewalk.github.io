@@ -79,19 +79,33 @@
             opacity: 0.4;
             transform: translate(0, 20%); 
         }
+
+        .buttons{
+            margin: 20px;
+            padding: 20px;
+            border: 2px dotted;
+            border-color: #eeeeee;
+        }
+
+        .input{
+            display:inline-block;
+        }
     
         
     </style>
 </head>
 <body>
+    <div class="buttons">
+        <div class="input">
     <label for="charInput" style="color: #eeeeee; font-family: rauschen;">Enter Letter (a-e):</label>
     <input type="text" id="charInput" maxlength="1">
     
     <label for="numInput" style="color: #eeeeee; font-family: rauschen;">Enter Number (1-5):</label>
     <input type="number" id="numInput" min="1" max="5">
     
-    <button onclick="displayImage()" style=" font-family: rauschen">Take a walk</button>
-
+    <button onclick="displayImage()" style="margin-left: 40px; font-family: rauschen">Take a walk</button>
+</div>
+</div>
    <h1>Spacewalk</h1>
 
     <div class="grid" id="board"></div>
