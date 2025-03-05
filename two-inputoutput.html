@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 INPUT 1 OUTPUT TEMPLATE</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-image: url("bg.jpg");
+        }
+        @font-face {
+    font-family: hikaru;
+    src: url('HIKARUMONO-Regular.otf') format('truetype');
+  }
+  @font-face {
+    font-family: rauschen;
+    src: url('RauschenBTrial-Regular.otf') format('truetype');
+  }
+      button, input {
+  z-index:10;}
+
+  
+
+
+        .grid {
+            position: absolute;
+            height: 85vh;
+            width: 90vw;
+            transform: translate(0,16%); 
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 1px;
+        }
+
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 1px solid #eeeeee;
+            background-color: transparent;
+            opacity:0.9;
+        }
+
+        .position-label {
+            font-family: rauschen;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            font-size: 1rem;
+            color: #eeeeee;
+            font-weight: bold;
+            opacity: 1;
+        }
+
+        .cell img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+        }
+
+        h1{
+            font-family: hikaru;
+            font-size: 10rem;
+            color: #eeeeee;
+            opacity: 0.4;
+            transform: translate(0, 20%); 
+        }
+    
+        
+    </style>
+</head>
+<body>
+    <label for="charInput" style="color: #eeeeee; font-family: rauschen;">Enter Letter (a-e):</label>
+    <input type="text" id="charInput" maxlength="1">
+    
+    <label for="numInput" style="color: #eeeeee; font-family: rauschen;">Enter Number (1-5):</label>
+    <input type="number" id="numInput" min="1" max="5">
+    
+    <button onclick="displayImage()" style=" font-family: rauschen">Take a walk</button>
+
+   <h1>Spacewalk</h1>
+
+    <div class="grid" id="board"></div>
+    <div class="grid grid-view">
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+
+    <script>
+        const board = document.getElementById("board");
+        const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
+        const images = {
+    "a1": "1.PNG", "b1": "2.PNG", "c1": "3.PNG", "d1": "4.PNG", "e1": "5.PNG",
+    "a2": "6.PNG", "b2": "7.PNG", "c2": "8.PNG", "d2": "9.PNG", "e2": "10.PNG",
+    "a3": "11.PNG", "b3": "12.PNG", "c3": "13.PNG", "d3": "14.PNG", "e3": "15.PNG",
+    "a4": "16.PNG", "b4": "17.PNG", "c4": "18.PNG", "d4": "19.PNG", "e4": "20.PNG",
+    "a5": "21.PNG", "b5": "22.PNG", "c5": "23.PNG", "d5": "24.PNG", "e5": "7.PNG"
+}
+
+        for (let row = 1; row <= 5; row++) {
+            for (let col = 0; col < 5; col++) {
+                const position = `${letters[col]}${row}`;
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.dataset.position = position;
+
+                const label = document.createElement("span");
+                label.classList.add("position-label");
+                label.textContent = position;
+                cell.appendChild(label);
+
+                const img = document.createElement("img");
+        img.src = images[position]; 
+        img.alt = `Image for ${position}`;
+        cell.appendChild(img);
+
+        board.appendChild(cell);
+            }
+        }
+        
+        function displayImage() {
+            const validLetters = ["a", "b", "c", "d", "e"];
+            const charInput = document.getElementById("charInput").value.toLowerCase();
+            if (!validLetters.includes(charInput)) {
+                alert("Cell does not exist");
+                return;
+            }
+            const numInput = document.getElementById("numInput").value;
+
+            document.querySelectorAll(".cell img").forEach(img => img.style.display = "none");
+
+
+            const targetCell = document.querySelector(`.cell[data-position="${charInput}${numInput}"]`);
+            if (targetCell) {
+                targetCell.querySelector("img").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
+
+</body>
+</html>
