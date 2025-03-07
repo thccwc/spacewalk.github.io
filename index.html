@@ -91,10 +91,30 @@
             display:inline-block;
         }
     
+        @media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+    h1 {
+        font-size: 6rem;
+    }
+}
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+    h1 {
+        font-size: 4rem;
+    }
+}
+
         
     </style>
 </head>
 <body>
+    
     <div class="buttons">
         <div class="input">
     <label for="charInput" style="color: #eeeeee; font-family: rauschen;">Enter Letter (a-e):</label>
@@ -106,6 +126,8 @@
     <button onclick="displayImage()" style="margin-left: 40px; font-family: rauschen">Take a walk</button>
 </div>
 </div>
+<button onclick="toggleAllImages()" style="margin-top: 10px; font-family: rauschen;">See All Images</button>
+
    <h1>Spacewalk</h1>
 
     <div class="grid" id="board"></div>
@@ -166,6 +188,16 @@
                 targetCell.querySelector("img").style.display = "block";
             }
         }
+
+        function toggleAllImages() {
+    const allImages = document.querySelectorAll(".cell img");
+    const anyVisible = [...allImages].some(img => img.style.display === "block");
+
+    allImages.forEach(img => {
+        img.style.display = anyVisible ? "none" : "block";
+    });
+}
+
     </script>
 </body>
 </html>
